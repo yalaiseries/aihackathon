@@ -13,6 +13,18 @@ This repo is a simple multi-page static website designed to deploy on Netlify.
    - `OPENAI_API_KEY` (required for Q&A)
    - `OPENAI_MODEL` (optional, default: `gpt-4o-mini`)
 
+## Two-tier access (Public + Members)
+
+This site uses **Netlify Identity** for member sign-in and a protected Netlify Function for members-only resources.
+
+1. In Netlify: **Site configuration → Identity**
+   - Enable Identity
+   - Registration preferences: **Invite only** (recommended)
+2. Invite members: **Identity → Invite users**
+3. Members sign in at: `/members.html`
+
+Members-only data is served via `/.netlify/functions/members-resources` and will return `401` unless the user is signed in.
+
 ## Local preview
 
 Open `index.html` directly in a browser, or run a static server.

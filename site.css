@@ -200,3 +200,17 @@ a:hover { text-decoration: underline; }
 }
 .small { font-size: 13px; color: var(--muted); }
 .warn { color: #ffd2a6; }
+
+.img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(11, 18, 32, 0.25);
+}
+
+.img + .small,
+.img + .muted {
+  margin-top: 8px;
+}
