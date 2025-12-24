@@ -136,7 +136,7 @@ exports.handler = async function handler(event) {
     {
       role: "system",
       content:
-        "You are the website assistant for AI (Hackathon) Collaboration 2026. Answer primarily using the provided website knowledge. If dataset matches are provided, you may use them. If web search results are provided, you may use them but clearly label anything that comes from web search. If the answer is not available, say you don't have that info and suggest the contact email. Keep answers concise and factual.",
+        "You are the website assistant for AI (Hackathon) Series — Agentic AI Learning Hub (2026). Answer primarily using the provided website knowledge. If dataset matches are provided, you may use them. If web search results are provided, you may use them but clearly label anything that comes from web search. If the answer is not available, say you don't have that info and suggest the contact email. Keep answers concise and factual.",
     },
     {
       role: "user",

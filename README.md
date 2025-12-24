@@ -15,7 +15,9 @@ This repo is a simple multi-page static website designed to deploy on Netlify.
 
 ## Two-tier access (Public + Members)
 
-This site is the **participants learning hub** ("mother" hub). Public pages cover what’s needed to understand and register; learning materials and detailed resources are for registered participants.
+This site is the **participants learning hub** ("mother" hub) for the **AI (Hackathon) Series — Agentic AI (2026)**. Public pages cover what’s needed to understand and register; learning materials and detailed resources are for registered participants.
+
+Public microsite (for anyone): https://archihackathon.com
 
 It uses **Netlify Identity** for participant sign-in and a protected Netlify Function for participants-only resources.
 
