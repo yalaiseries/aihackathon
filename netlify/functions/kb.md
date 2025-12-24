@@ -26,9 +26,9 @@ Open to practical topics, for example:
 Local and/or international young architects, practitioners, firms, and tech partners looking to enter the built environment can participate as individuals or self-formed groups.
 
 ## Judging Criteria
-- Practicality & Impact (30%) – A well-defined problem statement with a feasible scope and an effective solution that addresses real-world needs. Include measurable KPIs (e.g., time, cost, quality, risk, or manual effort), with a baseline comparison.
-- Collaboration & Innovation (30%) – Local and/or international collaboration demonstrating innovative use of AI-driven agentic workflows that integrate with existing systems and processes to streamline work and improve outcomes.
-- Documentation & Implementation (40%) – Clear documentation of methods, tools, and process, including links to code repositories or equivalent artefacts, with sufficient implementation details and results to show problem, approach, and outcomes.
+- Practicality & Impact – A well-defined problem with a feasible solution that addresses real-world needs.
+- Collaboration & Innovation – Meaningful collaboration and a clear, novel application of AI to improve outcomes.
+- Documentation & Implementation – Clear, reproducible documentation of approach, workflow, and results.
 
 ## Benefits
 Participants may benefit from the event in:
