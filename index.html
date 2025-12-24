@@ -5,202 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI (Hackathon) Collaboration 2026</title>
     <meta name="description" content="AI (Hackathon) Collaboration 2026 — a six-month (Jan–Jun) initiative for architects and built environment practitioners to collaborate and innovate with AI." />
-    <style>
-      :root {
-        --bg: #0b1220;
-        --panel: #121c2f;
-        --text: #e7eefc;
-        --muted: #a9b8d6;
-        --accent: #7aa2ff;
-        --border: rgba(231, 238, 252, 0.14);
-        --maxw: 1040px;
+    <link rel="canonical" href="https://aihackathon.pro/" />
+    <meta name="theme-color" content="#0b1220" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AI (Hackathon) Collaboration" />
+    <meta property="og:title" content="AI (Hackathon) Collaboration 2026" />
+    <meta property="og:description" content="A six-month (Jan–Jun 2026) initiative to build practical AI-assisted workflows for the built environment." />
+    <meta property="og:url" content="https://aihackathon.pro/" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="AI (Hackathon) Collaboration 2026" />
+    <meta name="twitter:description" content="Collaborate and Innovate: Our AI Collaboration" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="/site.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "AI (Hackathon) Collaboration 2026",
+        "startDate": "2026-01-01",
+        "endDate": "2026-07-24",
+        "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+          "@type": "Place",
+          "name": "SIA Theatrette",
+          "address": "3rd Level, 79 Neil Road, Singapore 088904"
+        },
+        "url": "https://aihackathon.pro/",
+        "description": "A six-month (Jan–Jun 2026) initiative for architects and built environment practitioners to collaborate and innovate with AI."
       }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        background: radial-gradient(1200px 600px at 20% 0%, rgba(122,162,255,0.18), transparent 60%),
-                    radial-gradient(900px 500px at 85% 20%, rgba(108, 234, 255, 0.14), transparent 55%),
-                    var(--bg);
-        color: var(--text);
-        line-height: 1.45;
-      }
-      a { color: var(--text); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      header {
-        position: sticky;
-        top: 0;
-        background: rgba(11, 18, 32, 0.82);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border);
-        z-index: 10;
-      }
-      .nav {
-        max-width: var(--maxw);
-        margin: 0 auto;
-        padding: 14px 16px;
-        display: flex;
-        gap: 14px;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .brand {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        font-weight: 700;
-        letter-spacing: 0.2px;
-      }
-      .brand-badge {
-        width: 28px;
-        height: 28px;
-        border-radius: 8px;
-        background: linear-gradient(135deg, rgba(122,162,255,0.9), rgba(108,234,255,0.7));
-        box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      }
-      .navlinks {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        font-size: 14px;
-      }
-      .navlinks a {
-        padding: 8px 10px;
-        border-radius: 10px;
-        border: 1px solid transparent;
-      }
-      .navlinks a:hover {
-        border-color: var(--border);
-        text-decoration: none;
-        background: rgba(18, 28, 47, 0.6);
-      }
-      main { max-width: var(--maxw); margin: 0 auto; padding: 28px 16px 64px; }
-      .hero {
-        padding: 28px 16px;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        background: rgba(18, 28, 47, 0.72);
-      }
-      .hero h1 { margin: 0 0 8px; font-size: 34px; }
-      .hero p { margin: 0; color: var(--muted); max-width: 70ch; }
-      .cta {
-        margin-top: 16px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 10px 14px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: rgba(11, 18, 32, 0.25);
-        color: var(--text);
-        font-weight: 600;
-      }
-      .btn.primary {
-        border-color: rgba(122,162,255,0.55);
-        background: linear-gradient(135deg, rgba(122,162,255,0.35), rgba(108,234,255,0.18));
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: 1.25fr 0.75fr;
-        gap: 14px;
-        margin-top: 14px;
-      }
-      @media (max-width: 900px) {
-        .grid { grid-template-columns: 1fr; }
-      }
-      section {
-        margin-top: 18px;
-        padding: 18px;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        background: rgba(18, 28, 47, 0.6);
-      }
-      h2 { margin: 0 0 8px; font-size: 18px; }
-      h3 { margin: 16px 0 8px; font-size: 16px; }
-      ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
-      .meta {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-        color: var(--muted);
-        font-size: 13px;
-      }
-      .pill {
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        padding: 6px 10px;
-        background: rgba(11, 18, 32, 0.25);
-      }
-      .qa {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-      .qa textarea {
-        width: 100%;
-        min-height: 84px;
-        resize: vertical;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: rgba(11, 18, 32, 0.35);
-        color: var(--text);
-        padding: 10px 12px;
-        font-size: 14px;
-      }
-      .qa .row {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-      .qa .answer {
-        white-space: pre-wrap;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: rgba(11, 18, 32, 0.25);
-        padding: 10px 12px;
-        color: var(--muted);
-        min-height: 46px;
-      }
-      footer {
-        margin-top: 26px;
-        color: var(--muted);
-        font-size: 13px;
-        text-align: center;
-      }
-      .small { font-size: 13px; color: var(--muted); }
-      .warn { color: #ffd2a6; }
-    </style>
+    </script>
   </head>
   <body>
-    <header>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="header">
       <div class="nav">
-        <div class="brand">
-          <div class="brand-badge" aria-hidden="true"></div>
-          <div>
-            <div>AI (Hackathon) Collaboration 2026</div>
-            <div class="small">Collaborate and Innovate: Our AI Collaboration</div>
-          </div>
-        </div>
-        <nav class="navlinks" aria-label="Primary">
-          <a href="/">Home</a>
+        <a class="brand" href="/">
+          <span class="badge" aria-hidden="true"></span>
+          <span>
+            <strong>AI (Hackathon) Collaboration 2026</strong>
+            <span class="sub">Collaborate and Innovate: Our AI Collaboration</span>
+          </span>
+        </a>
+        <nav class="links" aria-label="Primary">
+          <a class="active" href="/" aria-current="page">Home</a>
           <a href="/programme.html">Programme</a>
           <a href="/timeline.html">Timeline</a>
           <a href="/submissions.html">Submissions</a>
           <a href="/resources.html">Resources</a>
+          <a class="btn primary" href="https://forms.gle/rdZZzCxTVhAAzvCP7" target="_blank" rel="noreferrer">Register</a>
         </nav>
       </div>
     </header>
-
-    <main>
+    <main class="main" id="main">
       <div class="hero">
         <h1>Ground-up solutions by practitioners, for practitioners</h1>
         <p>
@@ -220,7 +82,7 @@
       </div>
 
       <div class="grid">
-        <section>
+        <section class="card">
           <h2>Quick summary</h2>
           <ul>
             <li><strong>Theme:</strong> Collaborate and Innovate: Our AI Collaboration</li>
@@ -231,7 +93,7 @@
           </ul>
         </section>
 
-        <section>
+        <section class="card">
           <h2>Ask AI (simple Q&amp;A)</h2>
           <div class="qa">
             <textarea id="q" placeholder="Ask about deadlines, judging criteria, prizes, CPD points, venue, etc."></textarea>
@@ -239,13 +101,13 @@
               <button class="btn primary" id="ask">Ask</button>
               <span class="small" id="status"></span>
             </div>
-            <div class="answer" id="a">This will work after you add the Netlify Function + API key.</div>
-            <div class="small">Privacy: keep questions non-sensitive. The assistant is configured to answer from website info.</div>
+            <div class="answer" id="a">Tip: after you add `OPENAI_API_KEY` in Netlify, ask “What are the submission deadlines?”</div>
+            <div class="small">Privacy: avoid sensitive data. Answers are based on this website’s info (and optional datasets/search if enabled).</div>
           </div>
         </section>
       </div>
 
-      <footer>
+      <footer class="footer">
         Contact: <a href="mailto:youth@sia.org.sg">youth@sia.org.sg</a> · <a href="mailto:yal.aiseries@gmail.com">yal.aiseries@gmail.com</a>
       </footer>
     </main>
