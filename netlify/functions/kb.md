@@ -45,7 +45,7 @@ Participants may benefit from the event in:
 - Innovation Awards: $500 (5)
 
 ## Registration Links
-- AI (Hackathon) Series 2026 programme: https://forms.gle/rdZZzCxTVhAAzvCP7
+- AI (Hackathon) Series (2026 AI Collaboration): https://forms.gle/rdZZzCxTVhAAzvCP7
 - Discussion & Sharing Sessions: to be updated
 
 ## Target Deliverables
@@ -94,4 +94,4 @@ BOA-SIA CPD points are awarded upon recorded attendance at sessions shown in the
 - yal.aiseries@gmail.com
 
 ## Note & Disclaimer
-The scope, deliverables, timelines, and terms of the AI (Hackathon) Series 2026 programme may change at the organisers’ discretion.
+The scope, deliverables, timelines, and terms of the AI (Hackathon) Series (2026 AI Collaboration) may change at the organisers’ discretion.
