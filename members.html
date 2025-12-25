@@ -3,30 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Participants · AI (Hackathon) Series</title>
+    <title>AI Sharing · AI (Hackathon) Series</title>
     <meta name="description" content="Agentic AI Learning Hub for registered participants in the AI (Hackathon) Series — 2026 AI Collaboration." />
     <link rel="canonical" href="https://aihackathon.pro/members.html" />
     <meta name="theme-color" content="#0b1220" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AI (Hackathon) Series" />
-    <meta property="og:title" content="Participants · AI (Hackathon) Series" />
+    <meta property="og:title" content="AI Sharing · AI (Hackathon) Series" />
     <meta property="og:description" content="Sign in to access members-only resources and past sharing." />
     <meta property="og:url" content="https://aihackathon.pro/members.html" />
 
     <meta name="twitter:card" content="summary" />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="/site.css" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./site.css" />
 
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="./supabase-config.js"></script>
+
+    <script type="module">
+      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+      window.__createSupabaseClient = createClient;
+    </script>
+
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="header">
       <div class="nav">
-        <a class="brand" href="/">
+        <a class="brand" href="./">
           <span class="badge" aria-hidden="true"></span>
           <span>
             <strong>AI (Hackathon) Series</strong>
@@ -34,32 +40,38 @@
           </span>
         </a>
         <nav class="links" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/programme.html">Programme</a>
-          <a href="/timeline.html">Timeline</a>
-          <a href="/submissions.html">Submissions</a>
-          <a class="active" href="/members.html" aria-current="page">Participants</a>
+          <a href="./">Home</a>
+          <a href="./collaboration.html">2026 Collaboration</a>
+          <a class="active" href="./members.html" aria-current="page">AI Sharing</a>
+          <a href="./winners.html" id="winnersLink" style="display:none;">Winners</a>
           <a class="btn primary" href="https://forms.gle/rdZZzCxTVhAAzvCP7" target="_blank" rel="noreferrer">Register</a>
         </nav>
       </div>
     </header>
 
     <main class="main" id="main">
-      <h1>Participants / Learning Hub</h1>
+      <h1>AI Sharing / Learning Hub</h1>
 
       <section class="card">
-        <img class="img" src="/assets/webpage/Resources.gif" alt="Participants resources" loading="lazy" decoding="async" />
+        <img class="img" src="assets/webpage/Resources.gif" alt="AI sharing resources" loading="lazy" decoding="async" />
       </section>
 
       <section class="card">
-        <h2>Sign in</h2>
-        <p class="muted">Training materials are available only to registered participants and members of our community of practice. Please sign in to access members-only resources.</p>
+        <h2>Access</h2>
+        <p class="muted">Sign in to access members-only resources.</p>
+
+        <div class="field" style="margin-top: 10px; max-width: 420px;">
+          <label class="small" for="email">Email</label>
+          <input id="email" type="email" autocomplete="email" placeholder="you@example.com" />
+        </div>
+
         <div class="cta" style="margin-top: 10px;">
-          <button class="btn primary" id="login" type="button">Log in / Sign up</button>
+          <button class="btn primary" id="login" type="button">Log in (registered email)</button>
           <button class="btn" id="logout" type="button" style="display:none;">Log out</button>
           <span class="small" id="who"></span>
         </div>
-        <p class="small warn" style="margin-top: 10px;">Tip: enable Netlify Identity in your Netlify site settings for this to work.</p>
+
+        <p class="small warn" id="adminSetupNote" style="margin-top: 10px; display:none;">Admin setup required: configure Supabase Auth redirect URLs and set the Supabase URL + anon key in this page.</p>
       </section>
 
       <section class="card">
@@ -72,8 +84,8 @@
       </section>
 
       <section class="card">
-        <h2>Participants library</h2>
-        <p class="muted">This list is served via a protected Netlify Function. Not logged in = no access.</p>
+        <h2>AI Sharing library</h2>
+        <p class="muted">This list is served via a protected Supabase Edge Function.</p>
         <div id="membersStatus" class="small"></div>
         <div id="membersContent" class="answer"></div>
       </section>
@@ -97,9 +109,11 @@
     </main>
 
     <script>
+      const emailEl = document.getElementById('email');
       const loginBtn = document.getElementById('login');
       const logoutBtn = document.getElementById('logout');
       const whoEl = document.getElementById('who');
+      const winnersLink = document.getElementById('winnersLink');
       const statusEl = document.getElementById('membersStatus');
       const contentEl = document.getElementById('membersContent');
 
@@ -111,38 +125,72 @@
         contentEl.textContent = text || '';
       }
 
-      function updateUI(user) {
+      // TODO: Replace these with your Supabase project values.
+      const SUPABASE_URL = window.SUPABASE_URL || 'https://YOUR_PROJECT_REF.supabase.co';
+      const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
+      const adminSetupNote = document.getElementById('adminSetupNote');
+
+      const hasSupabaseConfig =
+        !!window.SUPABASE_URL &&
+        !!window.SUPABASE_ANON_KEY &&
+        !String(window.SUPABASE_URL).includes('YOUR_PROJECT_REF') &&
+        !String(window.SUPABASE_ANON_KEY).includes('YOUR_SUPABASE_ANON_KEY');
+
+      if (adminSetupNote) adminSetupNote.style.display = hasSupabaseConfig ? 'none' : '';
+
+      const supabase = window.__createSupabaseClient
+        ? window.__createSupabaseClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+        : null;
+
+      function updateUI(session) {
+        const user = session && session.user;
         if (user) {
           loginBtn.style.display = 'none';
           logoutBtn.style.display = '';
-          const email = (user.email || (user.user_metadata && user.user_metadata.email) || '').trim();
-          whoEl.textContent = email ? `Signed in as ${email}` : 'Signed in';
+          if (winnersLink) winnersLink.style.display = '';
+          whoEl.textContent = user.email ? `Signed in as ${user.email}` : 'Signed in';
         } else {
           loginBtn.style.display = '';
           logoutBtn.style.display = 'none';
+          if (winnersLink) winnersLink.style.display = 'none';
           whoEl.textContent = '';
         }
       }
 
-      async function loadMembersLibrary(user) {
+      async function loadMembersLibrary(session) {
         setContent('');
-        if (!user) {
+        if (!session || !session.access_token) {
           setStatus('Please sign in to view members-only resources.');
           return;
         }
 
+        const registerUrl = 'https://forms.gle/rdZZzCxTVhAAzvCP7';
+
         setStatus('Loading members-only resources…');
         try {
-          const token = await user.jwt();
-          const res = await fetch('/.netlify/functions/members-resources', {
+          const SUPABASE_FUNCTIONS_URL = window.SUPABASE_FUNCTIONS_URL || '';
+
+          const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/members-resources`, {
             headers: {
-              authorization: `Bearer ${token}`
+              apikey: SUPABASE_ANON_KEY,
+              authorization: `Bearer ${session.access_token}`
             }
           });
 
           const data = await res.json().catch(() => ({}));
           if (!res.ok) {
             setStatus('');
+            if (res.status === 403 && data && data.code === 'not_registered') {
+              contentEl.innerHTML = `
+                <div class="answer">
+                  <p><strong>Signed in, but not registered yet.</strong></p>
+                  <p class="muted">Please submit the registration form using the same email you used to sign in, then refresh this page.</p>
+                  <p><a class="btn primary" href="${registerUrl}" target="_blank" rel="noreferrer">Open registration form</a></p>
+                </div>
+              `;
+              return;
+            }
+
             setContent(data.error || 'Could not load members-only resources.');
             return;
           }
@@ -170,34 +218,57 @@
         }
       }
 
-      loginBtn.addEventListener('click', () => {
-        if (!window.netlifyIdentity) return;
-        window.netlifyIdentity.open();
+      loginBtn.addEventListener('click', async () => {
+        setContent('');
+        if (!supabase) {
+          setStatus('Supabase client failed to load.');
+          return;
+        }
+
+        const email = String(emailEl.value || '').trim();
+        if (!email) {
+          setStatus('Please enter your email.');
+          return;
+        }
+
+        setStatus('Sending sign-in link…');
+        const baseUrl = window.location.href.replace(/\/?[^/]*$/, '/');
+        const { error } = await supabase.auth.signInWithOtp({
+          email,
+          options: {
+            // Important for GitHub Pages (origin does not include the repo path)
+            emailRedirectTo: `${baseUrl}members.html`
+          }
+        });
+        if (error) {
+          setStatus(error.message || 'Could not log in.');
+          return;
+        }
+        setStatus('Check your email for the sign-in link.');
       });
 
-      logoutBtn.addEventListener('click', () => {
-        if (!window.netlifyIdentity) return;
-        window.netlifyIdentity.logout();
+      logoutBtn.addEventListener('click', async () => {
+        if (!supabase) return;
+        await supabase.auth.signOut();
       });
 
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user) => {
-          updateUI(user);
-          loadMembersLibrary(user);
+      async function init() {
+        if (!supabase) {
+          setStatus('Supabase client failed to load.');
+          return;
+        }
+
+        const { data } = await supabase.auth.getSession();
+        updateUI(data.session);
+        loadMembersLibrary(data.session);
+
+        supabase.auth.onAuthStateChange((_event, session) => {
+          updateUI(session);
+          loadMembersLibrary(session);
         });
-        window.netlifyIdentity.on('login', (user) => {
-          window.netlifyIdentity.close();
-          updateUI(user);
-          loadMembersLibrary(user);
-        });
-        window.netlifyIdentity.on('logout', () => {
-          updateUI(null);
-          loadMembersLibrary(null);
-        });
-        window.netlifyIdentity.init();
-      } else {
-        setStatus('Netlify Identity script failed to load.');
       }
+
+      init();
     </script>
   </body>
 </html>
